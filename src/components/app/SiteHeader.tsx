@@ -43,6 +43,7 @@ export function PageShell({ children }: { children: React.ReactNode }) {
                 ["/dashboard", "Dashboard"],
                 ["/path", "Lessons"],
                 ["/diagnostic", "Check-in"],
+                ["/homework", "Homework"],
               ] as const
             ).map(([to, label]) => (
               <Link

@@ -15,6 +15,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DiagnosticRouteImport } from './routes/diagnostic'
 import { Route as GuardianRouteImport } from './routes/guardian'
+import { Route as HomeworkRouteImport } from './routes/homework'
 import { Route as PathRouteImport } from './routes/path'
 import { Route as ApiTutorRouteImport } from './routes/api/tutor'
 import { Route as LessonSkillIdRouteImport } from './routes/lesson/$skillId'
@@ -49,6 +50,11 @@ const GuardianRoute = GuardianRouteImport.update({
   path: '/guardian',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HomeworkRoute = HomeworkRouteImport.update({
+  id: '/homework',
+  path: '/homework',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PathRoute = PathRouteImport.update({
   id: '/path',
   path: '/path',
@@ -72,6 +78,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/diagnostic': typeof DiagnosticRoute
   '/guardian': typeof GuardianRoute
+  '/homework': typeof HomeworkRoute
   '/path': typeof PathRoute
   '/api/tutor': typeof ApiTutorRoute
   '/lesson/$skillId': typeof LessonSkillIdRoute
@@ -83,6 +90,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/diagnostic': typeof DiagnosticRoute
   '/guardian': typeof GuardianRoute
+  '/homework': typeof HomeworkRoute
   '/path': typeof PathRoute
   '/api/tutor': typeof ApiTutorRoute
   '/lesson/$skillId': typeof LessonSkillIdRoute
@@ -95,6 +103,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/diagnostic': typeof DiagnosticRoute
   '/guardian': typeof GuardianRoute
+  '/homework': typeof HomeworkRoute
   '/path': typeof PathRoute
   '/api/tutor': typeof ApiTutorRoute
   '/lesson/$skillId': typeof LessonSkillIdRoute
@@ -108,6 +117,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/diagnostic'
     | '/guardian'
+    | '/homework'
     | '/path'
     | '/api/tutor'
     | '/lesson/$skillId'
@@ -119,6 +129,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/diagnostic'
     | '/guardian'
+    | '/homework'
     | '/path'
     | '/api/tutor'
     | '/lesson/$skillId'
@@ -130,6 +141,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/diagnostic'
     | '/guardian'
+    | '/homework'
     | '/path'
     | '/api/tutor'
     | '/lesson/$skillId'
@@ -142,6 +154,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   DiagnosticRoute: typeof DiagnosticRoute
   GuardianRoute: typeof GuardianRoute
+  HomeworkRoute: typeof HomeworkRoute
   PathRoute: typeof PathRoute
   ApiTutorRoute: typeof ApiTutorRoute
   LessonSkillIdRoute: typeof LessonSkillIdRoute
@@ -191,6 +204,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuardianRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/homework': {
+      id: '/homework'
+      path: '/homework'
+      fullPath: '/homework'
+      preLoaderRoute: typeof HomeworkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/path': {
       id: '/path'
       path: '/path'
@@ -222,6 +242,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   DiagnosticRoute: DiagnosticRoute,
   GuardianRoute: GuardianRoute,
+  HomeworkRoute: HomeworkRoute,
   PathRoute: PathRoute,
   ApiTutorRoute: ApiTutorRoute,
   LessonSkillIdRoute: LessonSkillIdRoute,

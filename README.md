@@ -52,3 +52,7 @@ Set Preview and Production values individually in Vercel Project Settings. Keep 
 For tutoring, provision an approved test student with `ai_allowed = true` and a valid gateway key in Preview. Exercise progressive hints, follow-ups, off-topic and personal-info rejection, signed-out/guardian denials, and the allowance of 20 requests per UTC day. Review the provider's data processing and retention configuration for classroom use. The app leaves chat history in memory and blocks obvious contact details. Pattern checks cannot detect every form of personal information. Keep AI access disabled for students without approval. No credentials belong in GitHub.
 
 Use a Vercel preview as the release checkpoint. Verify the homepage, both exercise types, diagnostic, guest persistence, account isolation, tutor API, and desktop/mobile interactions before publishing the full classroom.
+
+## Homework review
+
+Open Homework to add a PDF or worksheet photo and save review notes in this browser. Files remain on the current site and browser profile. Use the fraction division walkthrough to enter a problem from a worksheet, reveal each step, and check the exact quotient or number of complete groups.
