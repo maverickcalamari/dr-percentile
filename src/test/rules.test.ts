@@ -42,3 +42,14 @@ describe("curriculum", () => {
   });
   it("diagnostic starts at first missed band", () => expect(startUnitFromDiagnostic([true, true, false])).toBe("mul-div"));
 });
+
+it("adjusts the factor range for multiplication and division practice", () => {
+  const multiplication = SKILLS.find((skill) => skill.id === "mul-facts")!;
+  const division = SKILLS.find((skill) => skill.id === "div-facts")!;
+  for (let i = 0; i < 20; i++) {
+    expect(Number(multiplication.generate("review").answer)).toBeLessThanOrEqual(49);
+    expect(Number(multiplication.generate("challenge").answer)).toBeGreaterThanOrEqual(64);
+    expect(Number(division.generate("review").answer)).toBeLessThanOrEqual(7);
+    expect(Number(division.generate("challenge").answer)).toBeGreaterThanOrEqual(8);
+  }
+});

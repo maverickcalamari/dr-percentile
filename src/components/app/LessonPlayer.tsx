@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { answersMatch, formatNumber } from "@/lib/math";
-import type { Question, Skill } from "@/lib/curriculum";
+import type { Difficulty, Question, Skill } from "@/lib/curriculum";
 import { speak, canSpeak } from "@/lib/tts";
 import { Professor, SpeechBubble } from "./Professor";
 import type { AttemptInput } from "@/lib/data";
@@ -29,18 +29,20 @@ function SpeakBtn({ text }: { text: string }) {
 export function LessonPlayer({
   skill,
   count = 5,
+  difficulty = "standard",
   onAttempt,
   onFinish,
 }: {
   skill: Skill;
   count?: number;
+  difficulty?: Difficulty;
   onAttempt?: (a: AttemptInput) => Promise<void> | void;
   onFinish?: (score: number, total: number) => void;
 }) {
   const [phase, setPhase] = useState<Phase>("learn");
   const [stepShown, setStepShown] = useState(1);
   const [questions] = useState<Question[]>(() =>
-    Array.from({ length: count }, () => skill.generate()),
+    Array.from({ length: count }, () => skill.generate(difficulty)),
   );
   const [qi, setQi] = useState(0);
   const [answer, setAnswer] = useState("");

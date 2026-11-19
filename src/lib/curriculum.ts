@@ -10,6 +10,8 @@ export type Question = {
   choices?: string[];
 };
 
+export type Difficulty = "review" | "standard" | "challenge";
+
 export type Skill = {
   id: string;
   unit: string;
@@ -17,7 +19,7 @@ export type Skill = {
   level: number; // 1..9 order in path
   intro: string;
   example: { problem: string; steps: string[]; answer: string };
-  generate: () => Question;
+  generate: (difficulty?: Difficulty) => Question;
 };
 
 export type Unit = { id: string; title: string; emoji: string; blurb: string };
@@ -36,6 +38,12 @@ export const UNITS: Unit[] = [
 
 const r = (a: number, b: number) => a + Math.floor(Math.random() * (b - a + 1));
 const pick = <T,>(xs: T[]) => xs[Math.floor(Math.random() * xs.length)] as T;
+
+function factRange(difficulty?: Difficulty): [number, number] {
+  if (difficulty === "review") return [2, 7];
+  if (difficulty === "challenge") return [8, 16];
+  return [2, 12];
+}
 
 export const SKILLS: Skill[] = [
   {
@@ -73,7 +81,7 @@ export const SKILLS: Skill[] = [
     id: "mul-facts", unit: "mul-div", title: "Times tables", level: 3,
     intro: "Multiplication is fast repeated addition. 6 × 4 means four groups of six. Dr. P's trick: break a hard fact into easy ones!",
     example: { problem: "7 × 8", steps: ["Break 8 into 5 + 3.", "7 × 5 = 35 and 7 × 3 = 21.", "35 + 21 = 56."], answer: "56" },
-    generate: () => { const a = r(2, 12), b = r(2, 12);
+    generate: (difficulty) => { const [min,max] = factRange(difficulty); const a = r(min, max), b = r(min, max);
       return { prompt: `${a} × ${b} = ?`, answer: a * b,
         hints: [`Do you know ${a} × ${Math.min(b, 5)}? Start there.`, b > 5 ? `${a} × ${b} = ${a} × 5 + ${a} × ${b - 5}` : `Count up in ${a}s, ${b} times.`],
         steps: [`${a} × ${b} means ${b} groups of ${a}.`, `${a} × ${b} = ${a * b}`] }; },
@@ -91,7 +99,7 @@ export const SKILLS: Skill[] = [
     id: "div-facts", unit: "mul-div", title: "Division facts", level: 3,
     intro: "Division asks: how many groups? 56 ÷ 8 means 'what times 8 makes 56?' Every division is a multiplication in disguise!",
     example: { problem: "56 ÷ 8", steps: ["Ask: 8 × ? = 56", "8 × 7 = 56", "So 56 ÷ 8 = 7"], answer: "7" },
-    generate: () => { const b = r(2, 12), q = r(2, 12);
+    generate: (difficulty) => { const [min,max] = factRange(difficulty); const b = r(min, max), q = r(min, max);
       return { prompt: `${b * q} ÷ ${b} = ?`, answer: q,
         hints: [`Turn it around: ${b} × ? = ${b * q}`, `Try counting up in ${b}s until you reach ${b * q}.`],
         steps: [`${b} × ${q} = ${b * q}`, `So ${b * q} ÷ ${b} = ${q}`] }; },

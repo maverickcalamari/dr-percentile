@@ -27,7 +27,8 @@ function LessonContent({ skillId }: { skillId: string }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ready, skillId, blocked]);
   const recent = progress.assessments.filter((row) => row.skillId === skillId).at(-1);
-  const count = recent && recent.score < recent.total ? 7 : 5;
+  const difficulty = !recent ? "standard" : recent.score < recent.total ? "review" : "challenge";
+  const count = difficulty === "review" ? 7 : 5;
   return (
     <PageShell>
       <div className="mx-auto max-w-3xl">
@@ -46,6 +47,7 @@ function LessonContent({ skillId }: { skillId: string }) {
           <LessonPlayer
             skill={skill}
             count={count}
+            difficulty={difficulty}
             onAttempt={(attempt) =>
               save({
                 kind: "attempt",
