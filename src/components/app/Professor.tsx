@@ -1,4 +1,4 @@
-import prof from "@/assets/dr-perncentile.png";
+import prof from "@/assets/dr-percentile.png";
 import { cn } from "@/lib/utils";
 
 export function Professor({
@@ -13,7 +13,7 @@ export function Professor({
   return (
     <img
       src={prof}
-      alt="Dr. Percentile, a cartoon math professor with round glasses"
+      alt="Dr. Percentile, a smiling Black math professor with natural curls and round glasses"
       width={size}
       height={size}
       loading={eager ? "eager" : "lazy"}
